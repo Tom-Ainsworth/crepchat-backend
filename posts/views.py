@@ -35,12 +35,13 @@ class PostList(APIView):
 class PostDetail(APIView):
     '''Detail view to retrieve and update a post'''
     
-    serializer_class = PostSerializer
     permission_classes = [IsOwnerOrReadOnly]
+    serializer_class = PostSerializer
 
     def get_object(self, pk):
         try:
             post = Post.objects.get(pk=pk)
+            self.check_object_permissions(self.request, post)
             return post
         except Post.DoesNotExist:
             raise Http404
