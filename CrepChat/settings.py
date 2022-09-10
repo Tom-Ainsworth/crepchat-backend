@@ -73,7 +73,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "CrepChat.wsgi.application"
 
 # Default User model in case I want to override any settings later on
-AUTH_USER_MODEL = 'profiles.User'
+AUTH_USER_MODEL = "profiles.User"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
