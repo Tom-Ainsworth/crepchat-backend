@@ -22,7 +22,7 @@ class Post(models.Model):
     image = models.ImageField(
         upload_to="images/", default="../default_post_q8rncs.jpg", blank=True
     )
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default="Nike")
 
     class Meta:
         ordering = ["-created_at"]
