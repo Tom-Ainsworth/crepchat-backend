@@ -23,3 +23,22 @@ class LikeDetail(generics.RetrieveDestroyAPIView):
     serializer_class = LikeSerializer
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Like.objects.all()
+
+
+class DislikeList(generics.ListCreateAPIView):
+    """Generic list view for comments"""
+
+    serializer_class = DislikeSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    queryset = Dislike.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+
+class DislikeDetail(generics.RetrieveDestroyAPIView):
+    """Generic view to retrive and delete Dislikes. No need to update them"""
+
+    serializer_class = DislikeSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+    queryset = Dislike.objects.all()
