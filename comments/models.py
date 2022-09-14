@@ -1,5 +1,4 @@
 # External
-from abc import update_abstractmethods
 from django.db import models
 
 # Internal

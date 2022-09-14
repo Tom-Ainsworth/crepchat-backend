@@ -1,4 +1,7 @@
+# External
 from django.db import models
+
+# Internal
 from profiles.models import User
 from posts.models import Post
 
