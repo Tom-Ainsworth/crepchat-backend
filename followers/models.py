@@ -1,5 +1,9 @@
 from tkinter import CASCADE
+
+# External
 from django.db import models
+
+# Internal
 from profiles.models import User
 
 
