@@ -1,5 +1,6 @@
 # External
 from rest_framework import generics, permissions
+from django_filters.rest_framework import DjangoFilterBackend
 
 # Internal
 from CrepChat.permissions import IsOwnerOrReadOnly
@@ -16,6 +17,12 @@ class CommentList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+    filter_backends = [
+        DjangoFilterBackend,
+    ]
+
+    filterset_fields = ["post"]
 
 
 class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
