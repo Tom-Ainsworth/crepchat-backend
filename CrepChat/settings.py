@@ -26,11 +26,14 @@ REST_FRAMEWORK = {
 }
 
 REST_USE_JWT = True
-
 # Makes sure tokens are only sent over https
 JWT_AUTH_SECURE = True
 JWT_AUTH_COOKIE = "crepchat-access-token"
 JWT_AUTH_REFRESH_COOKIE = "crepchat-refresh-token"
+
+REST_AUTH_SERIALIZERS = {
+    "USER_DETAILS_SERIALIZER": "CrepChat.serializers.CurrentUserSerializer"
+}
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
