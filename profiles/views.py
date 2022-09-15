@@ -1,6 +1,7 @@
 # External
 from rest_framework import generics, filters
 from django.db.models import Count
+from django_filters.rest_framework import DjangoFilterBackend
 
 # Internal
 from .models import Profile
@@ -17,7 +18,14 @@ class ProfileList(generics.ListAPIView):
         followers_count=Count("owner__followed", distinct=True),
         following_count=Count("owner__following", distinct=True),
     ).order_by("-created_at")
-    filter_backends = [filters.OrderingFilter]
+    filter_backends = [
+        filters.OrderingFilter,
+        DjangoFilterBackend,
+    ]
+
+    filterset_fields = [
+        "owner__following__followed__profile",
+    ]
     ordering_fields = [
         "posts_count",
         "followers_count",
