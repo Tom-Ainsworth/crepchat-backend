@@ -1,9 +1,6 @@
 # External
-from rest_framework import status, permissions, generics
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from django.http import Http404
-
+from rest_framework import permissions, generics, filters
+from django.db.models import Count
 
 # Internal
 from .models import Post
@@ -16,7 +13,18 @@ class PostList(generics.ListCreateAPIView):
 
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = Post.objects.all()
+    queryset = Post.objects.annotate(
+        comments_count=Count("comment", distinct=True),
+        likes_count=Count("likes", distinct=True),
+        dislikes_count=Count("dislikes", distinct=True),
+    ).order_by("-created_at")
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = [
+        "comments_count",
+        "likes_count",
+        "dislikes_count",
+        "likes__created_at",
+    ]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -27,4 +35,8 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
 
     serializer_class = PostSerializer
     permission_classes = [IsOwnerOrReadOnly]
-    queryset = Post.objects.all()
+    queryset = Post.objects.annotate(
+        comments_count=Count("comment"),
+        likes_count=Count("likes"),
+        dislikes_count=Count("dislikes"),
+    ).order_by("-created_at")
