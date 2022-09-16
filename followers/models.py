@@ -1,5 +1,3 @@
-from tkinter import CASCADE
-
 # External
 from django.db import models
 
