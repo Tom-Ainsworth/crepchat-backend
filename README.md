@@ -23,7 +23,10 @@ Link to the frontend repository [Crep Chat frontend](https://github.com/Tom-Ains
     - [Reviews](#reviews)
   - [Entity Relationship Diagram](#entity-relationship-diagram)
   - [Models and CRUD breakdown](#models-and-crud-breakdown)
+  - [Development Process](#development-process)
+    - [Current Features](#current-features)
   - [Tests](#tests)
+    - [Post Tests](#post-tests)
   - [Deployment Steps](#deployment-steps)
 
 ## User Stories
@@ -87,6 +90,96 @@ Link to the frontend repository [Crep Chat frontend](https://github.com/Tom-Ains
 | posts     | posts/ posts/:id/         | yes           | yes      | yes    | yes    | profile/liked/feed | title          |
 | reviews   | reviews/ reviews/:id/     | yes           | yes      | yes    | yes    | review/liked/feed  | title/category |
 
+## Development Process
+
+### Current Features
+
+In order to ensure that a full minimum viable product is delivered within the deadline given. I decided to hold off on building the reviews portion of the project until the front end is completed without it. If I am able to implement this feature later, I will. I am satisfied that this is not a Must Have feature, as even if done correctly, it could cause confusion when trying to distinguish between a user 'post' and an author 'review'. All other user stories have been met successfully.
+
 ## Tests
 
+### Post Tests
+
+Tests were carried out on both the PostList and PostDetail views, and can be [Found Here](posts/tests.py)
+
 ## Deployment Steps
+
+This application has been deployed from GitHub to Heroku by following the steps:
+
+1. Create or log in to your account on [Heroku.com](https://www.heroku.com/))
+2. Create a new app, add a unique app name (this project is named "crepchat-api") and choose your region
+3. Click on create app
+4. Under resources tab search for Postgres in Add-ons section, and add Heroku Postgres to the app. Choose the 'hobby' plan for a free plan. PostgreSQL 'DATABASE_URL' will be added to the app Config Vars.
+5. Install the libraries dj-database-url and psycopg2 (pip3 install dj_database_url psycopg2) for mac.
+6. In settings.py file import dj_database_url
+7. In settings.py add the following if statement to the 'DATABASES' variable. This is to keep the development and production environments and their databases separate.
+
+   ```python
+   DATABASES = {
+       'default': ({
+           'ENGINE': 'django.db.backends.sqlite3',
+           'NAME': BASE_DIR / 'db.sqlite3',
+       } if 'DEV' in os.environ else dj_database_url.parse(
+           os.environ.get('DATABASE_URL')
+       ))
+   }
+   ```
+
+8. Install `pip3 install django-cors-headers` and configure it in settings.py to your specifications. Ensure you add `'corsheaders.middleware.CorsMiddleware'` as high as possible in the MIDDLEWARE settings
+
+9. Pip install gunicorn, then create a `Procfile` in your app:
+
+   ```python
+   release: python manage.py makemigrations && python manage.py migrate
+   web: gunicorn PROJECT_NAME.wsgi
+   ```
+
+   The first line is to ensure that migrations are created and applied to the Heroku postgres database.
+   The second line tells Heroku to serve our app using gunicorn.
+
+10. Set the ALLOWED_HOSTS in settings.py
+
+    ```python
+    ALLOWED_HOSTS = [
+      os.environ.get('ALLOWED_HOST'),
+      'localhost',
+    ]
+    ```
+
+11. In settings.py, update the CORS_ALLOWED_ORIGINS to match your desired project.
+
+12. Add JWT_AUTH_SAMESITE = 'None' to be able to have the front end app and the API deployed to different platforms.
+
+13. Add remaining environment variables settings to env.py file at the root directory. Make sure to add this file to .gitignore.
+
+    ```python
+    import os
+      os.environ["CLOUDINARY_URL"] = "your_cloudinary_url"
+      os.environ['DEV'] = '1'
+      os.environ["SECRET_KEY"] = "your_secret_key"
+    ```
+
+14. Replace the insecure SECRET_KEY with the environment variable in settings.py
+
+    ```python
+    SECRET_KEY = os.enrivon.get('SECRET_KEY')
+    ```
+
+15. Change the DEBUG settings DEBUG = 'DEV' in os.environ (it will equal False in production)
+
+16. Go to Settings in your Heroku and set the environment variables in the Config Vars. PostgreSQL DATABASE_URL should already be there.
+
+    ```python
+    ALLOWED_HOST | your_deployed_api_url
+    CLIENT_ORIGIN | your_deployed_frontend_url
+    CLOUDINARY_URL | your_API_variable
+    DATABASE_URL | created when added Postgres to Heroku Add-ons
+    SECRET_KEY | your_secret_key
+    DISABLE_COLLECTSTATIC | 1
+    ```
+
+17. Update the requirements.txt file to ensure the deployment doesn't fail by writing in the terminal "pip3 freeze --local > requirements.txt"
+
+18. Push your changes to GitHub
+
+19. Push the code to Heroku using the command git push heroku main
