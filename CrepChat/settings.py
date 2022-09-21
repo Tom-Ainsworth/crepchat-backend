@@ -51,19 +51,18 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if os.environ.get("DEV"):
-    DEBUG = True
-else:
-    DEBUG = False
+DEBUG = "DEV" in os.environ
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOST", "127.0.0.1").split(",")
+ALLOWED_HOSTS = [
+    os.environ.get("ALLOWED_HOST"),
+    "127.0.0.1",
+]
 
-# ! Uncomment the if statement when pushing to production, and remove line 63 as that lets anyone connect to the site
-if os.environ.get("CLIENT_ORIGIN"):
+if "CLIENT_ORIGIN" in os.environ:
     CORS_ALLOWED_ORIGINS = [os.environ.get("CLIENT_ORIGIN")]
+
 if os.environ.get("CLIENT_ORIGIN_DEV"):
     CORS_ALLOWED_ORIGINS = [os.environ.get("CLIENT_ORIGIN_DEV")]
-
 
 # Application definition
 
