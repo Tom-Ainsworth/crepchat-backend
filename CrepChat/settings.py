@@ -56,7 +56,7 @@ if os.environ.get("DEV"):
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "127.0.0.1").split(",")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOST", "127.0.0.1").split(",")
 
 # ! Uncomment the if statement when pushing to production, and remove line 63 as that lets anyone connect to the site
 if os.environ.get("CLIENT_ORIGIN"):
