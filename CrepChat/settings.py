@@ -61,8 +61,8 @@ ALLOWED_HOSTS = [
 if "CLIENT_ORIGIN" in os.environ:
     CORS_ALLOWED_ORIGINS = [os.environ.get("CLIENT_ORIGIN")]
 
-if os.environ.get("CLIENT_ORIGIN_DEV"):
-    CORS_ALLOWED_ORIGINS = [os.environ.get("CLIENT_ORIGIN_DEV")]
+# if os.environ.get("CLIENT_ORIGIN_DEV"):
+#     CORS_ALLOWED_ORIGINS = [os.environ.get("CLIENT_ORIGIN_DEV")]
 
 # Application definition
 
