@@ -55,12 +55,13 @@ DEBUG = "DEV" in os.environ
 
 ALLOWED_HOSTS = [os.environ.get("ALLOWED_HOST"), "127.0.0.1"]
 
-if "CLIENT_ORIGIN" in os.environ:
-    CORS_ALLOWED_ORIGINS = [os.environ.get("CLIENT_ORIGIN")]
-else:
-    CORS_ALLOW_ALL_ORIGINS: True
+# if "CLIENT_ORIGIN" in os.environ:
+#     CORS_ALLOWED_ORIGINS = [os.environ.get("CLIENT_ORIGIN"), "http://localhost:3000"]
 
-CORS_ALLOW_CREDENTIALS = True
+# else:
+CORS_ALLOW_ALL_ORIGINS = True
+
+
 # Application definition
 
 INSTALLED_APPS = [
