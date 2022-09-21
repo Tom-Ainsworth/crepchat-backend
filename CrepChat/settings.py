@@ -62,8 +62,9 @@ if "CLIENT_ORIGIN" in os.environ:
     CORS_ALLOWED_ORIGINS = [os.environ.get("CLIENT_ORIGIN")]
 
 if os.environ.get("CLIENT_ORIGIN_DEV"):
-    CORS_ALLOWED_ORIGINS = ["localhost:3000"]
+    CORS_ALLOWED_ORIGINS = [os.environ.get("CLIENT_ORIGIN_DEV")]
 
+print(CORS_ALLOWED_ORIGINS)
 # allow sending cookies in cross-origin requests
 # Users won't be able to authenticate if not set
 CORS_ALLOW_CREDENTIALS = True
