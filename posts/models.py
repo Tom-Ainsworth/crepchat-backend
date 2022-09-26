@@ -20,7 +20,7 @@ class Post(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    caption = models.CharField(max_length=255)
+    caption = models.TextField(blank=True)
     image = models.ImageField(
         upload_to="images/", default="../default_post_q8rncs.jpg", blank=True
     )
