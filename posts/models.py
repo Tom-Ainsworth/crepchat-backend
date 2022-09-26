@@ -12,9 +12,9 @@ class Post(models.Model):
     """
 
     CATEGORY_CHOICES = [
-        ("ADIDAS", "Adidas"),
-        ("NEW_BALANCE", "New Balance"),
-        ("NIKE", "Nike"),
+        ("Adidas", "Adidas"),
+        ("New Balance", "New Balance"),
+        ("Nike", "Nike"),
     ]
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
