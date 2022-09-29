@@ -27,6 +27,7 @@ Link to the frontend repository [Crep Chat frontend](https://github.com/Tom-Ains
     - [Current Features](#current-features)
   - [Tests](#tests)
     - [Post Tests](#post-tests)
+    - [Manual Tests](#manual-tests)
   - [Deployment Steps](#deployment-steps)
 
 ## User Stories
@@ -102,6 +103,10 @@ In order to ensure that a full minimum viable product is delivered within the de
 ### Post Tests
 
 Tests were carried out on both the PostList and PostDetail views, and can be [Found Here](posts/tests.py)
+
+### Manual Tests
+
+Please see the [frontend repo](https://github.com/Tom-Ainsworth/crepchat-frontend#testing) for all manual tests covered, as they include the backend functionality
 
 ## Deployment Steps
 
