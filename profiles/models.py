@@ -20,7 +20,7 @@ class Profile(models.Model):
     content = models.TextField(blank=True)
     image = models.ImageField(
         upload_to="images/",
-        default="default_profile_kkzjl7_tv9li6.jpg",
+        default="../default_profile_kkzjl7.jpg",
         blank=True,
     )
 
