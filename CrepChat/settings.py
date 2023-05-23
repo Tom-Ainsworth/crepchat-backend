@@ -56,7 +56,7 @@ DEBUG = "DEV" in os.environ
 ALLOWED_HOSTS = [
     os.environ.get("ALLOWED_HOST"),
     "127.0.0.1",
-    'crepchat-api.up.railway.app',
+    "crepchat-api.up.railway.app",
 ]
 
 # Add Render.com URL to allowed hosts
@@ -149,7 +149,6 @@ DATABASES = {
     if "DEV" in os.environ
     else dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
-
 
 
 # Password validation
